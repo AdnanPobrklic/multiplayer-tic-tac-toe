@@ -2,7 +2,7 @@
 
 Play tic-tac-toe aganist your friends or a robot.
 
-[LIVE](dasdsadasdsas/)
+[LIVE](https://tic-tac-toe-jvaa.onrender.com)
 
 This project is built with Express&React and Tailwind for styling.
 
