@@ -2,7 +2,7 @@
 
 Play tic-tac-toe aganist your friends or a robot.
 
-[LIVE](dasdsadasdsas/)
+[LIVE](https://friends-chat-a8iu.onrender.com)
 
 This project is built with Express&React and Tailwind for styling.
 
