@@ -77,7 +77,7 @@ const handleRestartGameSocket = (socket, io, liveGames) => {
 
                 if(game.player1.wantsRematch && game.player2.wantsRematch){
                     game.player1.wantsRematch = false;
-                    game.player1.wantsRematch = false;
+                    game.player2.wantsRematch = false;
                     game.ongoing = true,
                     game.player1.symbol = game.player1.symbol == "X" ? "O" : "X",
                     game.player2.symbol = game.player2.symbol == "X" ? "O" : "X",
