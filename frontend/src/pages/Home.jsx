@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv1 } from 'uuid';
-import ClipLoader from "react-spinners/PacmanLoader";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 export default function Home(){
 
@@ -10,17 +10,9 @@ export default function Home(){
     const [loading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setIsLoading(true);
-                await new Promise(resolve => setTimeout(resolve, 1500)); 
-                setIsLoading(false);
-            } catch (error) {
-                console.error("Error occurred during data fetching:", error);
-                setIsLoading(false);
-            }
-        };
-        fetchData();
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 1000)
     }, []);
     
     const generateGameLink = async () => {
