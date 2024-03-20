@@ -7,7 +7,7 @@ export default function Home(){
 
     const [gameLink, setGameLink] = useState("");
     const [fetchError, setFetchError] = useState(false);
-    const [loading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         setTimeout(() => {
