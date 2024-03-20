@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv1 } from 'uuid';
 import PacmanLoader from "react-spinners/PacmanLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Home(){
 
@@ -12,7 +13,7 @@ export default function Home(){
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false)
-        }, 1000)
+        }, 1500)
     }, []);
     
     const generateGameLink = async () => {
