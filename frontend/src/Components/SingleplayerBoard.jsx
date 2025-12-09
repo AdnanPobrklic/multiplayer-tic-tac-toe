@@ -62,21 +62,88 @@ export default function SingleplayerBoard(){
         }
     };
     
+    const getBestMove = () => {
+        const board = game.board;
+        
+        for(let i = 0; i < 3; i++){
+            for(let j = 0; j < 3; j++){
+                if(board[i][j] === ''){
+                    const tempBoard = board.map(row => [...row]);
+                    tempBoard[i][j] = robot.symbol;
+                    if(checkWinForBoard(tempBoard, robot.symbol)){
+                        return {i, j};
+                    }
+                }
+            }
+        }
+        
+        for(let i = 0; i < 3; i++){
+            for(let j = 0; j < 3; j++){
+                if(board[i][j] === ''){
+                    const tempBoard = board.map(row => [...row]);
+                    tempBoard[i][j] = player.symbol;
+                    if(checkWinForBoard(tempBoard, player.symbol)){
+                        return {i, j};
+                    }
+                }
+            }
+        }
+        
+        if(board[1][1] === ''){
+            return {i: 1, j: 1};
+        }
+        
+        const corners = [[0,0], [0,2], [2,0], [2,2]];
+        const availableCorners = corners.filter(([i,j]) => board[i][j] === '');
+        if(availableCorners.length > 0){
+            const [i, j] = availableCorners[Math.floor(Math.random() * availableCorners.length)];
+            return {i, j};
+        }
+        
+        for(let i = 0; i < 3; i++){
+            for(let j = 0; j < 3; j++){
+                if(board[i][j] === ''){
+                    return {i, j};
+                }
+            }
+        }
+        
+        return null;
+    };
+    
+    const checkWinForBoard = (board, symbol) => {
+        for(let i = 0; i < 3; i++){
+            if(board[i][0] === symbol && board[i][1] === symbol && board[i][2] === symbol){
+                return true;
+            }
+        }
+        
+        for(let i = 0; i < 3; i++){
+            if(board[0][i] === symbol && board[1][i] === symbol && board[2][i] === symbol){
+                return true;
+            }
+        }
+        
+        if(board[0][0] === symbol && board[1][1] === symbol && board[2][2] === symbol){
+            return true;
+        }
+        
+        if(board[0][2] === symbol && board[1][1] === symbol && board[2][0] === symbol){
+            return true;
+        }
+        
+        return false;
+    };
+
     useEffect(() => {
         let timeoutId;
         if (game.onTurn === "r" && game.onGoing) {
             timeoutId = setTimeout(() => {
-                let randomI = Math.floor(Math.random() * 3);
-                let randomJ = Math.floor(Math.random() * 3);
-        
-                while (true) {
-                    randomI = Math.floor(Math.random() * 3);
-                    randomJ = Math.floor(Math.random() * 3);
-                    if (game.board[randomI][randomJ] === "") break;
+                const move = getBestMove();
+                if(move){
+                    updateBoard(move.i, move.j, robot.symbol);
+                    setGame(previousGame => ({ ...previousGame, onTurn: "p" }));
                 }
-        
-                updateBoard(randomI, randomJ, robot.symbol);
-                setGame(previousGame => ({ ...previousGame, onTurn: "p" }));
             }, 1000)
         }
     
@@ -196,7 +263,7 @@ export default function SingleplayerBoard(){
     }
 
     return(
-        <div className="bg-stone-900 text-slate-100 h-dvh flex justify-center items-center">
+        <div className="bg-stone-900 text-slate-100 h-screen flex justify-center items-center">
 
             {
                 !game.winner ? 
